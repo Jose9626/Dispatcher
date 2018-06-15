@@ -7,6 +7,11 @@ public class Cola {
     public Queue lista = new LinkedList();
     public int cantMax;
     
+    public Cola(LinkedList list, int num){
+        lista = list;
+        cantMax = num;
+    }
+    
     public void enqueue(Object item){
         lista.add(item);
     }
