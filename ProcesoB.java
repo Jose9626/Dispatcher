@@ -1,9 +1,6 @@
 package proyectoinfra;
 
-/**
- *
- * @author johan
- */
+
 public class ProcesoB extends Thread{
     String PID;
     String estado;
