@@ -2,10 +2,7 @@ package proyectoinfra;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- *
- * @author johan
- */
+
 public class Cola {
     public Queue lista = new LinkedList();
     public int cantMax;
