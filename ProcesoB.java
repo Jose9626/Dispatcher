@@ -13,19 +13,19 @@ import java.util.Date;
  */
 public class ProcesoB extends Proceso {
 
-    public ProcesoB(int PID, int espacio, Date fecha, String estado) {
-        super(PID, espacio, fecha, estado);
+    public ProcesoB(int PID, Date fecha, String estado) {
+        super(PID, 100, fecha, estado);
     }
 
     @Override
     public void run() {
         int contador = 1;
-        while (contador < 30000) {
+        while (contador < 10000) {
             contador += 1;
             System.out.println(PID + ": " + contador);
         }
         this.estado = "Exit";
         System.out.println("\nEl proceso ha dejado de utilizar los recursos");
     }
-    
+
 }
