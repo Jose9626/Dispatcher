@@ -1,12 +1,20 @@
-package proyectoinfra;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package logicaNegocios;
 
-public class ProcesoC extends Thread{
-    String PID;
-    String estado;
-    
-    public ProcesoC(int PID){
-        this.PID = "ProcesoC"+PID;
-        this.estado = "New"; 
+import java.util.Date;
+
+/**
+ *
+ * @author Luna Llena
+ */
+public class ProcesoC extends Proceso{
+
+    public ProcesoC(int PID, int espacio, Date fecha, String estado) {
+        super(PID, espacio, fecha, estado);
     }
     
     @Override
@@ -18,21 +26,5 @@ public class ProcesoC extends Thread{
         }
         //No se puede poner el estado en exit porque nunca sale del ciclo
     }
-    
-    public String getPID() {
-        return PID;
-    }
 
-    public void setPID(int PID) {
-        this.PID = "ProcesoC"+PID;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 }
-

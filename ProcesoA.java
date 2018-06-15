@@ -1,39 +1,30 @@
-package proyectoinfra;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package logicaNegocios;
 
-public class ProcesoA extends Thread{
-    String PID;
-    String estado;
+import java.util.Date;
+
+/**
+ *
+ * @author Luna Llena
+ */
+public class ProcesoA extends Proceso{
     
-    public ProcesoA(int PID){
-        this.PID = "ProcesoA" + PID;
-        this.estado = "New";
+    public ProcesoA(int PID, int espacio, Date fecha, String estado){
+        super(PID, espacio, fecha, estado);
     }
     
     @Override
     public void run(){
         int contador=1;
-        int respuesta=1;
         while (contador<20000){
-            //respuesta = contador+contador;
             contador+=1;
             System.out.println(PID+": "+contador);
         }
         this.estado="Exit";
     }
     
-    public String getPID() {
-        return PID;
-    }
-
-    public void setPID(int PID) {
-        this.PID = "ProcesoA"+PID;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 }
