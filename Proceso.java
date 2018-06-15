@@ -10,7 +10,6 @@ public class Proceso {
     int PID;
     int espacio;
     Date fechaInicial;
-    Date fechaFinal;
 
     public  Proceso(int PID, int espacio){
         this.PID=PID;
@@ -23,7 +22,7 @@ public class Proceso {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
  
 	fechaInicial = formatoFecha.parse(fecha1);
-	fechaFinal = formatoFecha.parse(fecha2);
+	Date fechaFinal = formatoFecha.parse(fecha2);
  
 	int dias = (int) ((fechaFinal.getTime()-fechaInicial.getTime())/86400000);
  
