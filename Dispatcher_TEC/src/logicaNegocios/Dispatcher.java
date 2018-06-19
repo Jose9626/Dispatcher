@@ -68,7 +68,15 @@ public class Dispatcher {
     
     public void dispatch() {
     	Proceso proceso = ready.dequeue();
-    	proceso.start();
+    	if (proceso.getState().toString() == "NEW") proceso.start();
+    	
+    	try {
+			proceso.alert();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
     	try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -76,7 +84,12 @@ public class Dispatcher {
 			e.printStackTrace();
 		}
     	
-    	proceso.suspend();
+    	try {
+			proceso.halt();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     	if (proceso.getState().toString() != "TERMINATED") {
     		ready.enqueue(proceso);
