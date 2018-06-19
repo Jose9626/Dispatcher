@@ -21,6 +21,15 @@ public class ProcesoC extends Proceso{
     public void run(){
         String tag;
         while (true){
+            while (!run) {
+                try {
+    				Thread.sleep(1);
+    				} 
+                catch (InterruptedException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+            }
             tag="Corriendo..";
             System.out.println(PID+": "+tag);
         }

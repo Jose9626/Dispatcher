@@ -21,6 +21,15 @@ public class ProcesoB extends Proceso {
     public void run() {
         int contador = 1;
         while (contador < 30000) {
+            while (!run) {
+                try {
+    				Thread.sleep(1);
+    				} 
+                catch (InterruptedException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+            }
             contador += 1;
             System.out.println(PID + ": " + contador);
         }

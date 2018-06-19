@@ -12,9 +12,7 @@ public class Dispatcher {
 
 	
 	public void agregarProceso(Proceso proceso) throws ParseException {
-		if (determinarMemoriaUsada() < 2000) {
-		}
-		else {
+		if (determinarMemoriaUsada() >= 2000) {
 			while (determinarMemoriaUsada() >= 2000) {
 				Proceso eliminar = LRU();
 				if (ready.eliminar(eliminar));
@@ -80,15 +78,7 @@ public class Dispatcher {
     	
     	proceso.suspend();
     	
-    	try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
     	if (proceso.getState().toString() != "TERMINATED") {
-    		proceso.suspend();
     		ready.enqueue(proceso);
     	}
     }

@@ -19,6 +19,8 @@ public class Proceso extends Thread {
     protected int espacio;
     protected Date fechaInicial;
     protected String estado;
+    public boolean run = false;
+
 
     public Proceso(int PID, int espacio, Date fecha, String estado) {
         this.PID = PID;
@@ -72,5 +74,14 @@ public class Proceso extends Thread {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    
+	public void halt() throws InterruptedException {
+		run = false; 
+	}
+
+
+	public void alert() throws InterruptedException {
+		run = true;
+	}
 
 }
