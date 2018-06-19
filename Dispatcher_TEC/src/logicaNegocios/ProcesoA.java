@@ -14,7 +14,7 @@ import java.util.Date;
 public class ProcesoA extends Proceso {
 
     public ProcesoA() {
-        super(1000, new Date(), Estado.READY);
+        super(1000, new Date());
     }
 
     @Override
@@ -33,8 +33,6 @@ public class ProcesoA extends Proceso {
             System.out.println(PID + ": " + contador);
 
         }
-
-        estado = Estado.RELEASED;
     }
 
 }

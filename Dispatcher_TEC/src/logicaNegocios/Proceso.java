@@ -19,15 +19,12 @@ public abstract class Proceso extends Thread {
     protected int PID;
     protected int espacio;
     protected Date fecha;
-    protected Estado estado;
     public boolean run = false;
 
-
-    public Proceso(int espacio, Date fecha, Estado estado) {
+    public Proceso(int espacio, Date fecha) {
         this.PID = ID++;
         this.espacio = espacio;
         this.fecha = fecha;
-        this.estado = estado;
     }
 
     //Método compara dos fechas 
@@ -68,21 +65,12 @@ public abstract class Proceso extends Thread {
         this.fecha = fechaInicial;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public void halt() throws InterruptedException {
+        run = false;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void alert() throws InterruptedException {
+        run = true;
     }
-    
-	public void halt() throws InterruptedException {
-		run = false; 
-	}
-
-
-	public void alert() throws InterruptedException {
-		run = true;
-	}
 
 }

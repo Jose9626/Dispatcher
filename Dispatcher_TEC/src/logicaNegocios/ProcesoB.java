@@ -14,7 +14,7 @@ import java.util.Date;
 public class ProcesoB extends Proceso {
 
     public ProcesoB() {
-        super(100, new Date(), Estado.READY);
+        super(100, new Date());
     }
 
     @Override
@@ -32,7 +32,6 @@ public class ProcesoB extends Proceso {
             contador += 1;
             System.out.println(PID + ": " + contador);
         }
-        this.estado = Estado.RELEASED;
         System.out.println("\nEl proceso ha dejado de utilizar los recursos");
     }
 

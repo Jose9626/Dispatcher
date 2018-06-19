@@ -14,7 +14,7 @@ import java.util.Date;
 public class ProcesoC extends Proceso {
 
     public ProcesoC() {
-        super(50, new Date(), Estado.READY);
+        super(50, new Date());
     }
 
     @Override
