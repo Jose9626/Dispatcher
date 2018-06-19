@@ -13,19 +13,20 @@ import java.util.Date;
  *
  * @author Luna Llena
  */
-public class Proceso extends Thread {
+public abstract class Proceso extends Thread {
 
+    private static int ID = 0;
     protected int PID;
     protected int espacio;
-    protected Date fechaInicial;
-    protected String estado;
+    protected Date fecha;
+    protected Estado estado;
     public boolean run = false;
 
 
-    public Proceso(int PID, int espacio, Date fecha, String estado) {
-        this.PID = PID;
+    public Proceso(int espacio, Date fecha, Estado estado) {
+        this.PID = ID++;
         this.espacio = espacio;
-        this.fechaInicial = fecha;
+        this.fecha = fecha;
         this.estado = estado;
     }
 
@@ -34,10 +35,10 @@ public class Proceso extends Thread {
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 
-        fechaInicial = formatoFecha.parse(fecha1);
+        fecha = formatoFecha.parse(fecha1);
         Date fechaFinal = formatoFecha.parse(fecha2);
 
-        int dias = (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 86400000);
+        int dias = (int) ((fechaFinal.getTime() - fecha.getTime()) / 86400000);
 
         System.out.println("" + dias + " dias de diferencia");
         return 0;
@@ -60,18 +61,18 @@ public class Proceso extends Thread {
     }
 
     public Date getFechaInicial() {
-        return fechaInicial;
+        return fecha;
     }
 
     public void setFechaInicial(Date fechaInicial) {
-        this.fechaInicial = fechaInicial;
+        this.fecha = fechaInicial;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
     

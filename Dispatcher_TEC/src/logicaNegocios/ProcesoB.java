@@ -13,8 +13,8 @@ import java.util.Date;
  */
 public class ProcesoB extends Proceso {
 
-    public ProcesoB(int PID, int espacio, Date fecha, String estado) {
-        super(PID, espacio, fecha, estado);
+    public ProcesoB() {
+        super(100, new Date(), Estado.READY);
     }
 
     @Override
@@ -23,18 +23,17 @@ public class ProcesoB extends Proceso {
         while (contador < 30000) {
             while (!run) {
                 try {
-    				Thread.sleep(1);
-    				} 
-                catch (InterruptedException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
             contador += 1;
             System.out.println(PID + ": " + contador);
         }
-        this.estado = "Exit";
+        this.estado = Estado.RELEASED;
         System.out.println("\nEl proceso ha dejado de utilizar los recursos");
     }
-    
+
 }

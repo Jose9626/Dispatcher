@@ -11,27 +11,26 @@ import java.util.Date;
  *
  * @author Luna Llena
  */
-public class ProcesoC extends Proceso{
+public class ProcesoC extends Proceso {
 
-    public ProcesoC(int PID, int espacio, Date fecha, String estado) {
-        super(PID, espacio, fecha, estado);
+    public ProcesoC() {
+        super(50, new Date(), Estado.READY);
     }
-    
+
     @Override
-    public void run(){
-        String tag;
-        while (true){
+    public void run() {
+        int contador = 0;
+        while (true) {
             while (!run) {
                 try {
-    				Thread.sleep(1);
-    				} 
-                catch (InterruptedException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
-            tag="Corriendo..";
-            System.out.println(PID+": "+tag);
+            contador++;
+            System.out.println(PID + ": " + contador);
         }
         //No se puede poner el estado en exit porque nunca sale del ciclo
     }
