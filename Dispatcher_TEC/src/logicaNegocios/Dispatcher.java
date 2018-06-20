@@ -10,10 +10,25 @@ public class Dispatcher {
 	private Cola ready = new Cola(new LinkedList(),10);
 	private Cola blocked = new Cola(new LinkedList(),10);
 
-	
+	public Cola getReady() {
+		return ready;
+	}
+
+	public void setReady(Cola ready) {
+		this.ready = ready;
+	}
+
+	public Cola getBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(Cola blocked) {
+		this.blocked = blocked;
+	}
+
 	public void agregarProceso(Proceso proceso) throws ParseException {
-		if (determinarMemoriaUsada() >= 2000) {
-			while (determinarMemoriaUsada() >= 2000) {
+		if (determinarMemoriaUsada() + proceso.getEspacio() >= 2000) {
+			while (determinarMemoriaUsada() + proceso.getEspacio() >= 2000) {
 				Proceso eliminar = LRU();
 				if (ready.eliminar(eliminar));
 				else blocked.eliminar(eliminar);
@@ -58,9 +73,9 @@ public class Dispatcher {
 	}
 	
     //Metodo compara dos fechas 
-    public int restarFechas(Date fecha1, Date fecha2) throws ParseException {
+    public float restarFechas(Date fecha1, Date fecha2) throws ParseException {
 
-        int dias = (int) ((fecha1.getTime() - fecha2.getTime()) / 86400000);
+        float dias = (int) ((fecha1.getTime() - fecha2.getTime()));
 
         System.out.println("" + dias + " dias de diferencia");
         return dias;
@@ -78,7 +93,7 @@ public class Dispatcher {
 		}
     	
     	try {
-			Thread.sleep(5000);
+			Thread.sleep(50);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
