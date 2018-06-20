@@ -15,12 +15,14 @@ public class ProcesoB extends Proceso {
     
     public ProcesoB() {
         super(100, new Date(), 100000);
+        recursos = false;
+        Dispatcher.semaforo.semwait(this);
     }
 
     @Override
     public void run() {
         while (contador < contadorFinal) {
-            while (!run) {
+            while (!run && !recursos) {
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
@@ -32,6 +34,7 @@ public class ProcesoB extends Proceso {
             System.out.println(PID + ": " + contador);
         }
         System.out.println("\nEl proceso ha dejado de utilizar los recursos");
+        Dispatcher.semaforo.semsignal(this);
     }
 
 }

@@ -20,6 +20,8 @@ public class Dispatcher implements Runnable {
     public static Cola nuevos = new Cola(new LinkedList(), 10);
     public static LinkedList<Proceso> terminados = new LinkedList<Proceso>();
     public static Proceso process;
+    public static Semaforo semaforo = new Semaforo();
+    public static boolean isInfinite;
 
     public void run() {
         while (true) {
@@ -65,24 +67,26 @@ public class Dispatcher implements Runnable {
         if (determinarMemoriaUsada() + proceso.getEspacio() > 2000) {
             while (determinarMemoriaUsada() + proceso.getEspacio() > 2000) {
                 Proceso eliminar = LRU();
-                if (ready.eliminar(eliminar)); else {
-                    blocked.eliminar(eliminar);
-                }
+                System.out.println("VA A MORIR "+eliminar.getPID()+" AYUUUUUUUUUDDDDDDAAAAAAAAAAAAA ");
+                ready.eliminar(eliminar);
+                blocked.eliminar(eliminar);
             }
         }
         encolarProceso(proceso);
     }
 
     public void encolarProceso(Proceso proceso) {
-        if (ready.size() < 10) {
+        if (ready.size() < 10 && proceso.isRecursos()) {
             ready.enqueue(proceso);
-        } else {
+        } 
+        else {
             blocked.enqueue(proceso);
         }
     }
 
     public Proceso LRU() throws ParseException {
         LinkedList<Proceso> procesos = unirColas();
+        System.out.println("Tamaño: "+procesos.size());
         while (procesos.size() < 1) {
             if (restarFechas(procesos.get(0).getFechaInicial(), procesos.get(1).getFechaInicial()) > 0) {
                 procesos.remove(1);
@@ -105,8 +109,10 @@ public class Dispatcher implements Runnable {
     public static LinkedList<Proceso> unirColas() {
         LinkedList<Proceso> lista_ready = (LinkedList<Proceso>) ready.lista;
         LinkedList<Proceso> lista_blocked = (LinkedList<Proceso>) blocked.lista;
-        lista_ready.addAll(lista_blocked);
-        return lista_ready;
+        LinkedList<Proceso> all = new LinkedList<Proceso>();
+        for (Proceso element: lista_blocked) all.add(element);
+        for (Proceso element: lista_ready) all.add(element);
+        return all;
     }
 
     //Metodo compara dos fechas 

@@ -31,6 +31,7 @@ public class Cola {
     }
     
     public boolean eliminar(Proceso proceso){
+    	
         return lista.remove(proceso);
     }
 

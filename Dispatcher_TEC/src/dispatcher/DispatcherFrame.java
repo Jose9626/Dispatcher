@@ -72,6 +72,8 @@ public class DispatcherFrame extends javax.swing.JFrame {
                     percentageField.setText(String.valueOf(porcentaje(Dispatcher.process.getContador(), Dispatcher.process.contadorFinal)));
                     progressBar.setValue(Integer.parseInt(percentageField.getText()));
                 } catch (Exception e) {
+                    percentageField.setText("100");
+                    progressBar.setValue(100);
                 }
             } else {
                 pIdField.setText("");
@@ -96,6 +98,31 @@ public class DispatcherFrame extends javax.swing.JFrame {
         }
     });
 
+    Timer timerSemaforo = new Timer(0, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            int uso = Dispatcher.semaforo.getSeminit();
+            if (uso==0) {
+	            resourceOneRed.setBackground(Color.WHITE);
+	            resourceOneGreen.setBackground(Color.GREEN);
+	            resourceTwoRed.setBackground(Color.WHITE);
+	            resourceTwoGreen.setBackground(Color.GREEN);
+            }
+            if (uso==1) {
+	            resourceOneRed.setBackground(Color.RED);
+	            resourceOneGreen.setBackground(Color.WHITE);
+	            resourceTwoRed.setBackground(Color.WHITE);
+	            resourceTwoGreen.setBackground(Color.GREEN);
+            }
+            if (uso==2) {
+	            resourceOneRed.setBackground(Color.RED);
+	            resourceOneGreen.setBackground(Color.WHITE);
+	            resourceTwoRed.setBackground(Color.RED);
+	            resourceTwoGreen.setBackground(Color.WHITE);
+            }
+        }
+    });
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -498,7 +525,9 @@ public class DispatcherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        Thread thread = new Thread(dispatcher);
+        timerSemaforo.setDelay(0);
+        timerSemaforo.start();
+    	Thread thread = new Thread(dispatcher);
         thread.start();
         timerReady.setDelay(1000);
         timerReady.start();
@@ -506,6 +535,7 @@ public class DispatcherFrame extends javax.swing.JFrame {
         timerRunnable.start();
         timerTerminated.setDelay(1000);
         timerTerminated.start();
+
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**

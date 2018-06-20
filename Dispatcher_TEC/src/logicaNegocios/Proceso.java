@@ -22,6 +22,7 @@ public abstract class Proceso extends Thread {
     protected int contador = 0;
     public int contadorFinal;
     public boolean run = false;
+    protected boolean recursos = true;
 
     public Proceso(int espacio, Date fecha, int fin) {
         this.PID = ID++;
@@ -35,8 +36,16 @@ public abstract class Proceso extends Thread {
         this.espacio = espacio;
         this.fecha = fecha;
     }
+  
+    public boolean isRecursos() {
+		return recursos;
+	}
 
-    //Método compara dos fechas 
+	public void setRecursos(boolean recursos) {
+		this.recursos = recursos;
+	}
+
+	//Método compara dos fechas 
     public int restarFechas(String fecha1, String fecha2) throws ParseException {
 
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");

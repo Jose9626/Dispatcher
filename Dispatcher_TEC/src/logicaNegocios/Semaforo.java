@@ -13,26 +13,49 @@ import java.util.ArrayList;
  */
 public class Semaforo {
 
-    private ArrayList<ProcesoB> listaEspera;
+    private ArrayList<Proceso> listaEspera = new ArrayList<Proceso>();
     private int seminit = 0;
 
-    public void semwait(ProcesoB proceso) {
+    
+    
+    public int getSeminit() {
+		return seminit;
+	}
+
+	public void setSeminit(int seminit) {
+		seminit = seminit;
+	}
+
+	public void semwait(Proceso proceso) {
         if (seminit == 2) {
             listaEspera.add(proceso);
-        } else {
+            proceso.setRecursos(false);
+
+        } else if(proceso.isRecursos()) {
+        	
+        }
+        else {
             seminit++;
+            proceso.setRecursos(true);
         }
     }
 
-    public void semsignal(ProcesoB proceso) {
-        if (seminit > 0) {
+    public void semsignal(Proceso proceso) {
+        System.out.println("SEMAFORO  ANTES: "+ seminit);
+
             seminit--;
-            if (listaEspera.size() != 0) {
-                ProcesoB nuevoproceso = listaEspera.get(0);
-                listaEspera.remove(nuevoproceso);
+            System.out.println("SEMAFORO : "+ seminit);
+
+            if (listaEspera.size() > 0) {
+                Proceso nuevoproceso = listaEspera.get(0);
+                listaEspera.remove(0);
+
+                System.out.println("PID : "+ nuevoproceso.getPID());
+                System.out.println("SIZE : "+ listaEspera.size());
+
+                
                 semwait(nuevoproceso);
             }
-        }
     }
 
 }
