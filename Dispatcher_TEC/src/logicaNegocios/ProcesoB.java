@@ -12,15 +12,14 @@ import java.util.Date;
  * @author Luna Llena
  */
 public class ProcesoB extends Proceso {
-
+    
     public ProcesoB() {
-        super(100, new Date());
+        super(100, new Date(), 100000);
     }
 
     @Override
     public void run() {
-        int contador = 1;
-        while (contador < 30000) {
+        while (contador < contadorFinal) {
             while (!run) {
                 try {
                     Thread.sleep(1);

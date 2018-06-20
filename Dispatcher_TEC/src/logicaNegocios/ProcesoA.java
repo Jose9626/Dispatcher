@@ -14,13 +14,12 @@ import java.util.Date;
 public class ProcesoA extends Proceso {
 
     public ProcesoA() {
-        super(1000, new Date());
+        super(1000, new Date(), 20000);
     }
 
     @Override
     public void run() {
-        int contador = 0;
-        while (contador < 20000) {
+        while (contador < contadorFinal) {
             while (!run) {
                 try {
                     Thread.sleep(1);

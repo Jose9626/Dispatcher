@@ -19,8 +19,17 @@ public abstract class Proceso extends Thread {
     protected int PID;
     protected int espacio;
     protected Date fecha;
+    protected int contador = 0;
+    public int contadorFinal;
     public boolean run = false;
 
+    public Proceso(int espacio, Date fecha, int fin) {
+        this.PID = ID++;
+        this.espacio = espacio;
+        this.fecha = fecha;
+        this.contadorFinal = fin;
+    }
+    
     public Proceso(int espacio, Date fecha) {
         this.PID = ID++;
         this.espacio = espacio;
@@ -71,6 +80,14 @@ public abstract class Proceso extends Thread {
 
     public void alert() throws InterruptedException {
         run = true;
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
     }
 
 }

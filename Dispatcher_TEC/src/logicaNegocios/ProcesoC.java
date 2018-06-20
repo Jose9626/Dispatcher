@@ -19,7 +19,6 @@ public class ProcesoC extends Proceso {
 
     @Override
     public void run() {
-        int contador = 0;
         while (true) {
             while (!run) {
                 try {
