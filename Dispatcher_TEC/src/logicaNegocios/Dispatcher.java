@@ -5,11 +5,36 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class Dispatcher {
+public class Dispatcher implements Runnable{
 
-	private Cola ready = new Cola(new LinkedList(),10);
-	private Cola blocked = new Cola(new LinkedList(),10);
-
+	private static Cola ready = new Cola(new LinkedList(),10);
+	private static Cola blocked = new Cola(new LinkedList(),10);
+	public static Cola nuevos = new Cola(new LinkedList(),10);
+	//public static int id = -1;
+	
+	public void run () {
+		while(true) {
+			if (ready.size() > 0)dispatch();
+			else if (ready.size() <10 && blocked.size() > 0)
+				try {
+					this.agregarProceso(blocked.dequeue());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			while(nuevos.size() != 0) {
+				try {
+					this.agregarProceso(nuevos.dequeue());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+	
 	public Cola getReady() {
 		return ready;
 	}
@@ -69,6 +94,15 @@ public class Dispatcher {
 		LinkedList<Proceso> lista_ready  = (LinkedList<Proceso>)ready.lista;
 		LinkedList<Proceso> lista_blocked  = (LinkedList<Proceso>)blocked.lista;
 		lista_ready.addAll(lista_blocked);
+		return lista_ready;
+	}
+	
+	public static LinkedList<Proceso> unirColasInterfaz(){
+		LinkedList<Proceso> lista_ready  = (LinkedList<Proceso>)ready.lista;
+		LinkedList<Proceso> lista_blocked  = (LinkedList<Proceso>)blocked.lista;
+		LinkedList<Proceso> lista_nuevo  = (LinkedList<Proceso>)nuevos.lista;
+		lista_ready.addAll(lista_blocked);
+		lista_ready.addAll(lista_nuevo);
 		return lista_ready;
 	}
 	
